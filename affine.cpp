@@ -197,7 +197,6 @@ Matrix transformMenu()
             break;
 
         default:
-            cout << "Invalid choice." << endl;
             break;
         }
 
