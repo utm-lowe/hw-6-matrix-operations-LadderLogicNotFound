@@ -1,18 +1,27 @@
+/**
+ * @file matrix.cpp
+ * @author Kaden Ross (kross45@skyhawks.utm.edu)
+ * @brief Implementation from matrix.h
+ * @version 0.1
+ * @date 2026-03-04
+ * 
+ * @copyright Copyright (c) 2026
+ * 
+ */
+
 #include "matrix.h"
 #include <iostream>
 #include <iomanip>
 
-// =====================
 // Constructor
-// =====================
 Matrix::Matrix(unsigned int rows, unsigned int cols)
 {
     m = rows;
     n = cols;
 
-    ar = new double*[m];           // array of row pointers
+    ar = new double*[m];
     for(int i = 0; i < m; i++)
-        ar[i] = new double[n];     // each row
+        ar[i] = new double[n];
 
     // Initialize elements to 0
     for(int i = 0; i < m; i++)
@@ -20,9 +29,7 @@ Matrix::Matrix(unsigned int rows, unsigned int cols)
             ar[i][j] = 0;
 }
 
-// =====================
 // Copy constructor
-// =====================
 Matrix::Matrix(const Matrix& rhs)
 {
     m = rhs.m;
@@ -37,9 +44,7 @@ Matrix::Matrix(const Matrix& rhs)
             ar[i][j] = rhs.ar[i][j];
 }
 
-// =====================
 // Destructor
-// =====================
 Matrix::~Matrix()
 {
     for(int i = 0; i < m; i++)
@@ -47,15 +52,13 @@ Matrix::~Matrix()
     delete[] ar;
 }
 
-// =====================
+
 // Getters
-// =====================
 int Matrix::getRows() const { return m; }
 int Matrix::getCols() const { return n; }
 
-// =====================
-// Access element
-// =====================
+
+// Access parts
 double& Matrix::at(unsigned int row, unsigned int col)
 {
     return ar[row][col];
@@ -66,36 +69,27 @@ const double& Matrix::at(unsigned int row, unsigned int col) const
     return ar[row][col];
 }
 
-// =====================
 // Assignment operator
-// =====================
 Matrix& Matrix::operator=(const Matrix& rhs)
 {
     if(this == &rhs) return *this; // self-assignment check
 
-    // Free old memory
     for(int i = 0; i < m; i++)
         delete[] ar[i];
     delete[] ar;
 
-    // Allocate new memory
     m = rhs.m;
     n = rhs.n;
     ar = new double*[m];
     for(int i = 0; i < m; i++)
         ar[i] = new double[n];
 
-    // Copy elements
     for(int i = 0; i < m; i++)
         for(int j = 0; j < n; j++)
             ar[i][j] = rhs.ar[i][j];
 
     return *this;
 }
-
-// =====================
-// Operator overloads
-// =====================
 
 // Matrix addition
 Matrix operator+(const Matrix& m1, const Matrix& m2)
